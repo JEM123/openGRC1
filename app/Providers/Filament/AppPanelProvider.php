@@ -82,6 +82,7 @@ class AppPanelProvider extends PanelProvider
             ->path('app')
             ->login()
             ->loginRouteSlug('login')
+            ->revealablePasswords(false)
             ->colors([
                 'primary' => Color::Slate,
             ])

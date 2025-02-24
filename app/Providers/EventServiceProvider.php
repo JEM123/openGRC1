@@ -11,6 +11,8 @@ use SocialiteProviders\Okta\OktaExtendSocialite;
 use SocialiteProviders\Azure\AzureExtendSocialite;
 use SocialiteProviders\Google\GoogleExtendSocialite;
 use SocialiteProviders\Auth0\Auth0ExtendSocialite;
+use App\Events\UserLockedOut;
+use App\Listeners\LogUserLockout;
 
 class EventServiceProvider extends ServiceProvider
 {
@@ -28,6 +30,18 @@ class EventServiceProvider extends ServiceProvider
             AzureExtendSocialite::class.'@handle',
             GoogleExtendSocialite::class.'@handle',
             Auth0ExtendSocialite::class.'@handle',
+        ],
+        \Illuminate\Auth\Events\Login::class => [
+            \App\Listeners\LogSuccessfulLogin::class,
+        ],
+        \Illuminate\Auth\Events\Failed::class => [
+            \App\Listeners\LogFailedLogin::class,
+        ],
+        \Illuminate\Auth\Events\Logout::class => [
+            \App\Listeners\LogSuccessfulLogout::class,
+        ],
+        \App\Events\UserLockedOut::class => [
+            \App\Listeners\LogUserLockout::class,
         ],
     ];
 

@@ -2,7 +2,6 @@
 
 namespace App\Providers;
 
-// use Illuminate\Support\Facades\Gate;
 use App\Filament\Resources\DataRequestResource;
 use App\Policies\DataRequestResponsePolicy;
 use App\Policies\PermissionPolicy;

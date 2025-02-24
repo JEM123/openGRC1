@@ -48,4 +48,64 @@ class HelperController extends Controller
 
         return $end->greaterThan($latestDate) ? $latestDate : $end;
     }
+
+    /**
+     * Formats a JSON string into a readable HTML structure.
+     *
+     * This method takes an escaped JSON string and converts it into a hierarchical HTML
+     * structure with proper indentation and formatting. The output includes:
+     * - Indented elements using margin-left
+     * - Bold keys for associative arrays
+     * - Escaped HTML characters for security
+     * - Nested array/object support
+     *
+     * @param  string  $json  The JSON string to be formatted
+     * @return string HTML formatted representation of the JSON
+     * @throws \JsonException If JSON decoding fails
+     */
+    public static function prettyPrintJson(string $json): string
+    {
+        // Decode JSON with error handling
+        try {
+            $data = json_decode($json, true, 512, JSON_THROW_ON_ERROR);
+        } catch (\JsonException $e) {
+            return '<div class="error">Invalid JSON format</div>';
+        }
+
+        // Recursive function to process the decoded JSON
+        $buildHtml = function ($data, int $indent = 0) use (&$buildHtml): string {
+            if ($data === null) {
+                return '<div style="margin-left:' . ($indent * 20) . 'px;">null</div>';
+            }
+
+            if (!is_array($data)) {
+                return '<div style="margin-left:' . ($indent * 20) . 'px;">' . 
+                    htmlspecialchars((string)$data) . '</div>';
+            }
+
+            $html = '';
+            $indentStyle = 'margin-left:' . ($indent * 20) . 'px;';
+            $isAssoc = array_keys($data) !== range(0, count($data) - 1);
+
+            foreach ($data as $key => $value) {
+                $html .= "<div style='{$indentStyle}'>";
+                
+                if ($isAssoc) {
+                    $html .= '<strong>' . htmlspecialchars((string)$key) . ':</strong> ';
+                }
+
+                if (is_array($value)) {
+                    $html .= $isAssoc ? '</div>' : '';
+                    $html .= $buildHtml($value, $indent + 1);
+                    $html .= $isAssoc ? '' : '</div>';
+                } else {
+                    $html .= htmlspecialchars((string)$value) . '</div>';
+                }
+            }
+
+            return $html;
+        };
+
+        return $buildHtml($data);
+    }
 }
