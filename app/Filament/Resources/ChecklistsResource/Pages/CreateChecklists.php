@@ -19,6 +19,7 @@ class CreateChecklists extends CreateRecord
                 'type' => $item->type,
                 'user_id' => auth()->user()->id,
                 'order' => $item->order,
+                'options' => $item->options,
                 'response' => "",
                 'notes' => "",
             ]);

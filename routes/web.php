@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Laravel\Socialite\Facades\Socialite;
+use App\Http\Controllers\ChecklistResponseController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -19,6 +20,9 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/app/priv-storage/{filepath}', function ($filepath) {
         return Storage::disk('private')->download($filepath);
     })->where('filepath', '.*')->name('priv-storage');
+
+    Route::post('/app/checklists/{checklist}/respond', [\App\Http\Controllers\ChecklistResponseController::class, 'store'])->name('checklist.respond');
+    Route::post('/app/checklists/{checklist}/responses', [ChecklistResponseController::class, 'store'])->name('checklists.responses.store');
 
 });
 

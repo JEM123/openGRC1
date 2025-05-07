@@ -25,12 +25,16 @@ class ChecklistTemplateResource extends Resource
             ->schema([
                 Forms\Components\TextInput::make('title')
                     ->required()
+                    ->columnSpanFull()
                     ->maxLength(255),
                 Forms\Components\Textarea::make('description')
                     ->required()
+                    ->columnSpanFull()
                     ->maxLength(65535),
                 Forms\Components\Repeater::make('checklist_template_items')
                     ->relationship('checklist_template_items')
+                    ->columnSpanFull()
+                    ->columns(3)
                     ->schema([
                         Forms\Components\TextInput::make('title')
                             ->required()
@@ -40,14 +44,23 @@ class ChecklistTemplateResource extends Resource
                                 'text' => 'Text',
                                 'number' => 'Number',
                                 'boolean' => 'Boolean',
+                                'select' => 'Select',
+                                'checkbox' => 'Checkbox',
+                                'accessreview' => 'Access Review',
                             ])
+                            ->live()
                             ->required(),
                         Forms\Components\TextInput::make('order')
                             ->required()
                             ->numeric(),
                         Forms\Components\Textarea::make('description')
                             ->required()
+                            ->columnSpanFull()
                             ->maxLength(65535),
+                        Forms\Components\Textarea::make('options')
+                            ->label('Options (comma separated)')
+                            ->visible(fn ($get) => $get('type') === 'select')
+                            ->helperText('Enter options separated by commas, e.g. Yes,No,Maybe'),
                     ]),
             ]);
     }

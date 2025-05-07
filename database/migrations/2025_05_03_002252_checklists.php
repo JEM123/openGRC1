@@ -22,8 +22,9 @@ return new class extends Migration
             $table->id();
             $table->foreignId('checklist_template_id')->constrained('checklist_templates');
             $table->string('title');
-            $table->text('description');
+            $table->text('description')->nullable();
             $table->string('type');
+            $table->text('options')->nullable();
             $table->integer('order');
             $table->timestamps();
         });
@@ -45,11 +46,14 @@ return new class extends Migration
             $table->foreignId('checklist_id')->constrained('checklists');
             $table->foreignId('user_id')->constrained('users');
             $table->string('title');
-            $table->text('description');
+            $table->text('description')->nullable();
             $table->string('type');
+            $table->text('options')->nullable();
             $table->integer('order');
             $table->string('response');
             $table->text('notes');
+            $table->foreignId('updated_by')->nullable()->constrained('users');
+            $table->foreignId('assigned_to')->nullable()->constrained('users');
             $table->timestamps();
         });
         

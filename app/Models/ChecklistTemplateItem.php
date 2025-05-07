@@ -6,5 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class ChecklistTemplateItem extends Model
 {
-    //
+    protected $casts = [
+        'options' => 'array',
+    ];
 }

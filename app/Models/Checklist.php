@@ -20,4 +20,14 @@ class Checklist extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function items()
+    {
+        return $this->hasMany(ChecklistTemplateItem::class, 'checklist_template_id', 'checklist_template_id');
+    }
+
+    public function responses()
+    {
+        return $this->hasMany(ChecklistResponse::class);
+    }
 }

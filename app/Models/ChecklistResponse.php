@@ -15,4 +15,20 @@ class ChecklistResponse extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function updatedBy()
+    {
+        return $this->belongsTo(User::class, 'updated_by');
+    }
+
+    public function assignedTo()
+    {
+        return $this->belongsTo(User::class, 'assigned_to');
+    }
+
+    public function updatedAt()
+    {
+        return $this->updated_at->format('Y-m-d H:i:s');
+    }
+
 }
