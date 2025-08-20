@@ -36,6 +36,8 @@ class AppServiceProvider extends ServiceProvider
             || $argv[1] === 'package:discover'
             || $argv[1] === 'filament:upgrade'
             || $argv[1] === 'vendor:publish'
+            || str_starts_with($argv[1], 'migrate')
+            || $argv[1] === 'db:seed'
             )) {
                 $isInstaller = true;
             }
