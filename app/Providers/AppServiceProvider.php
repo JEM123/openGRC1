@@ -108,8 +108,8 @@ class AppServiceProvider extends ServiceProvider
             } else {
                 // if table "settings" does not exist
                 // Error that app was not installed properly
-                abort(500, 'OpenGRC was not installed properly. Please review the
-                installation guide at https://docs.opengrc.com to install the app.');
+                //abort(500, 'OpenGRC was not installed properly. Please review the
+                //installation guide at https://docs.opengrc.com to install the app.');
             }
         }
 
