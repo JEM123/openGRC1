@@ -1,5 +1,73 @@
+# Dependencies
 node_modules
-public/build
 vendor
+
+# Build artifacts
+public/build
+public/hot
+public/storage
+
+# Environment and configuration
 .env
+.env.*
+!.env.example
+auth.json
+
+# Development and IDE files
 .DS_Store
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Git and version control
+.git
+.gitignore
+
+# Docker files
+Dockerfile*
+docker-compose*
+
+# Logs and cache
+*.log
+bootstrap/cache/*
+!bootstrap/cache/.gitkeep
+.phpunit.result.cache
+npm-debug.log
+yarn-error.log
+
+# Testing
+/coverage
+.nyc_output
+.phpunit.cache
+tests/
+
+# Storage
+storage/app/*
+storage/framework/cache/*
+storage/framework/sessions/*
+storage/framework/testing/*
+storage/framework/views/*
+storage/logs/*
+!storage/app/.gitkeep
+!storage/framework/cache/.gitkeep
+!storage/framework/sessions/.gitkeep
+!storage/framework/testing/.gitkeep
+!storage/framework/views/.gitkeep
+!storage/logs/.gitkeep
+
+# Documentation
+*.md
+!README.md
+
+# Deployment
+deploy/
+terraform/
+
+# Database files
+*.sqlite
+*.sqlite3
+
+# Temporary files
+*.tmp
+/tmp
