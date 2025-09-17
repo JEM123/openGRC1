@@ -2,6 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use \InvalidArgumentException;
+use \RuntimeException;
+use Illuminate\Support\Facades\Log;
+
 class PdfController extends Controller
 {
     public static function getPdfVersion(string $filePath): ?string
